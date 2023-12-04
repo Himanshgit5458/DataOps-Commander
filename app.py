@@ -110,7 +110,7 @@ def main():
 
 
             overall_marketing=pd.concat([df.groupby(["Source"])["Visited"].sum(),df.groupby(["Source"])["count"].sum(), df["Source"].value_counts(normalize=True)*100, df.groupby(["Source"])["Quality"].mean()*100], axis=1, sort=False)
-            overall_marketing.columns=["Source","Visited","Lead Count","Quality %"]
+            overall_marketing.columns=["Visited","Lead Count","Proportion","Quality %"]
             
             # overall_sales=pd.concat([df.groupby(["Assigned To"])["count"].sum(),df.groupby(["Assigned To"])["Visited"].sum(),df.groupby(["Assigned To"])["Quality"].mean()*100], axis=1, sort=False)
             
@@ -186,7 +186,7 @@ def main():
 
             # Overall
             overall_marketing2=pd.concat([fd.groupby(["Source"])["Visited"].sum(),fd.groupby(["Source"])["count"].sum(), fd["Source"].value_counts(normalize=True)*100, fd.groupby(["Source"])["Quality"].mean()*100], axis=1, sort=False)
-            overall_marketing2.columns=["Source","Visited","Lead Count","Quality %"]
+            overall_marketing2.columns=["Visited","Lead Count","Proportion","Quality %"]
             
             # overall_sales=pd.concat([df.groupby(["Assigned To"])["count"].sum(),df.groupby(["Assigned To"])["Visited"].sum(),df.groupby(["Assigned To"])["Quality"].mean()*100], axis=1, sort=False)
             
