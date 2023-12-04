@@ -111,6 +111,22 @@ def main():
 
             overall_marketing=pd.concat([df.groupby(["Source"])["Visited"].sum(),df.groupby(["Source"])["count"].sum(), df["Source"].value_counts(normalize=True)*100, df.groupby(["Source"])["Quality"].mean()*100], axis=1, sort=False)
             overall_marketing.columns=["Visited","Lead Count","Proportion","Quality %"]
+
+            overall_marketing["Qualified"]=round(overall_marketing["Quality %"]*overall_marketing["Lead Count"]/100,1)
+
+            # Assuming combined_series is your DataFrame
+            overall_marketing["QL/SV"] = np.where(
+                (overall_marketing["Visited"] != 0),
+                round(overall_marketing["Qualified"] / overall_marketing["Visited"], 1),
+                "No Visits"
+            )
+
+            # Replace 0/0 by "No Qualified leads"
+            overall_marketing["QL/SV"] = np.where(
+                (overall_marketing["Qualified"] == 0) & (overall_marketing["Visited"] == 0),
+                "No Qualified leads",
+                overall_marketing["QL/SV"]
+            )
             
             # overall_sales=pd.concat([df.groupby(["Assigned To"])["count"].sum(),df.groupby(["Assigned To"])["Visited"].sum(),df.groupby(["Assigned To"])["Quality"].mean()*100], axis=1, sort=False)
             
